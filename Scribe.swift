@@ -3,36 +3,88 @@
  
 	**Illustrating some buggy behavior in the Scribe Xcode plugin**
 
-	Scribe seems to have some bugs parsing arguments that take closures
+	Scribe seems to have some bugs parsing arguments in static or class methods
  
 	- seealso: [Scribe Plugin Website](https://scribeplugin.com/)
  
  
  */
-class TestClass {
+public class TestClass {
 	/**
-	Scribe totally missed this argument
+	Scribe did this correctly
+	
+	- parameter param: String
 	*/
-	func testFunc(block: () -> Void) {
-		
+	func works(param: String) {
+		/// Do something
 	}
 	
 	/**
-	 Caught `param` but missed `callback`
- 
-	 - parameter param: param description
+	Scribe misses
 	*/
-	func anotherTestFunc(param: String, callback: () -> Void = {}) {
-		
+	class func classMethod(param: String) {
+		/// Do Something
 	}
 	
 	/**
-	Got `param` but skipped `callback` and instead parsed `callback`'s `error` argument
-	
-	 - parameter param: param description
-	 - parameter error: error description
+	Scribe misses
 	*/
-	func errCallback(param: String, callback: (error: ErrorType) -> Void) {
-		
+	static func staticMethod(param: String) {
+		/// Do something
+	}
+	
+	/**
+	Scribe got this one
+	
+	- parameter param: String
+	*/
+	public func methodWithAccessDecleration(param: String) {
+		/// Do something
+	}
+	
+	/**
+	Scribe got this one
+	
+	 - parameter param: String
+	*/
+	internal func internalMethod(param: String) {
+		/// Do something
+	}
+	
+	/**
+	Scribe got this one
+	
+	 - parameter param: <#param description#>
+	*/
+	private func privateMethod(param: String) {
+		/// Do something
+	}
+	
+	/**
+	Scribe misses
+	*/
+	public class func publicClassMethod(param: String) {
+		/// Do something
+	}
+	
+	/**
+	Scribe misses
+	*/
+	class public func anotherPublicClassMethod(param: String) {
+		/// Do something
+	}
+	
+	/**
+	Scribe misses
+	*/
+	public static func publicStaticMethod(param: String) {
+		/// Do something
+	}
+	
+	/**
+	Scribe misses
+	*/
+	static public func anotherPublicStaticMethod(param: String) {
+		/// Do something
 	}
 }
